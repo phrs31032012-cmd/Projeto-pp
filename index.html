@@ -1,44 +1,149 @@
-import random
-random.random()
-play = ['pedra','papel','tesoura']
-rng = random.choice(play)
-print('*PEDRA PAPEL TESOURA CONTRA UM PROGRAMA*')
-print('1 = Pedra, 2 = Papel, 3 = Tesoura')
-input1 = input('Sua jogada?')
-if input1 not in ['1', '2', '3']:
-    print('Erro : Jogada invÃ¡lida, tente novamente.')
-else:
-    print('O programa jogou {}.'.format(rng))
-    if input1 == '1' and rng == 'pedra':
-        print('PEDRA = PEDRA')
-        win = 2
-    if input1 == '1' and rng == 'papel':
-        print('PEDRA < PAPEL')
-        win = 0
-    if input1 == '1' and rng == 'tesoura':
-        print('PEDRA > TESOURA')
-        win = 1
-    if input1 == '2' and rng == 'pedra':
-        print('PAPEL > PEDRA')
-        win = 1
-    if input1 == '2' and rng == 'papel':
-        print('PAPEL = PAPEL')
-        win = 2
-    if input1 == '2' and rng == 'tesoura':
-        print('PAPEL < TESOURA')
-        win = 0
-    if input1 == '3' and rng == 'pedra':
-        print('TESOURA < PEDRA')
-        win = 0
-    if input1 == '3' and rng == 'papel':
-        print('TESOURA > PAPEL')
-        win = 1
-    if input1 == '3' and rng == 'tesoura':
-        print('TESOURA = TESOURA')
-        win = 2
-    if win == 0:
-        print('VocÃª perdeu!')
-    if win == 1:
-        print('VocÃª ganhou!')
-    if win == 2:
-        print('Empate!')
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedra Papel Tesoura</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #111);
+            color: #fff;
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            width: 320px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .placar {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        .placar div {
+            background: #222;
+            padding: 10px 15px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            font-size: 18px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            background: #4a90e2;
+            color: #fff;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #357abd;
+            transform: scale(1.03);
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            min-height: 80px;
+        }
+
+        .reset {
+            background: #e74c3c;
+        }
+
+        .reset:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✊✋✌</h1>
+    <h2>Pedra, Papel e Tesoura</h2>
+
+    <div class="placar">
+        <div>Você<br><b id="pJogador">0</b></div>
+        <div>Empates<br><b id="pEmpate">0</b></div>
+        <div>PC<br><b id="pPC">0</b></div>
+    </div>
+
+    <button onclick="jogar('pedra')">✊ Pedra</button>
+    <button onclick="jogar('papel')">✋ Papel</button>
+    <button onclick="jogar('tesoura')">✌ Tesoura</button>
+
+    <div id="resultado"></div>
+
+    <button class="reset" onclick="resetar()">Zerar placar</button>
+</div>
+
+<script>
+    let jogador = 0;
+    let pc = 0;
+    let empate = 0;
+
+    function jogar(escolha) {
+        const opcoes = ['pedra', 'papel', 'tesoura'];
+        const pcEscolha = opcoes[Math.floor(Math.random() * 3)];
+        let texto = "";
+
+        if (escolha === pcEscolha) {
+            texto = "Empate! 🤝";
+            empate++;
+            document.getElementById("pEmpate").innerText = empate;
+        }
+        else if (
+            (escolha === 'pedra' && pcEscolha === 'tesoura') ||
+            (escolha === 'papel' && pcEscolha === 'pedra') ||
+            (escolha === 'tesoura' && pcEscolha === 'papel')
+        ) {
+            texto = "Você ganhou! 🎉";
+            jogador++;
+            document.getElementById("pJogador").innerText = jogador;
+        }
+        else {
+            texto = "Você perdeu! 😢";
+            pc++;
+            document.getElementById("pPC").innerText = pc;
+        }
+
+        document.getElementById("resultado").innerHTML = `
+            <p>Você jogou: <b>${escolha}</b></p>
+            <p>O PC jogou: <b>${pcEscolha}</b></p>
+            <h3>${texto}</h3>
+        `;
+    }
+
+    function resetar() {
+        jogador = 0;
+        pc = 0;
+        empate = 0;
+        document.getElementById("pJogador").innerText = 0;
+        document.getElementById("pPC").innerText = 0;
+        document.getElementById("pEmpate").innerText = 0;
+        document.getElementById("resultado").innerHTML = "";
+    }
+</script>
+
+</body>
+</html>
