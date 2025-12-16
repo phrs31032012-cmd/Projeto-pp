@@ -1,0 +1,44 @@
+import random
+random.random()
+play = ['pedra','papel','tesoura']
+rng = random.choice(play)
+print('*PEDRA PAPEL TESOURA CONTRA UM PROGRAMA*')
+print('1 = Pedra, 2 = Papel, 3 = Tesoura')
+input1 = input('Sua jogada?')
+if input1 not in ['1', '2', '3']:
+    print('Erro : Jogada invÃ¡lida, tente novamente.')
+else:
+    print('O programa jogou {}.'.format(rng))
+    if input1 == '1' and rng == 'pedra':
+        print('PEDRA = PEDRA')
+        win = 2
+    if input1 == '1' and rng == 'papel':
+        print('PEDRA < PAPEL')
+        win = 0
+    if input1 == '1' and rng == 'tesoura':
+        print('PEDRA > TESOURA')
+        win = 1
+    if input1 == '2' and rng == 'pedra':
+        print('PAPEL > PEDRA')
+        win = 1
+    if input1 == '2' and rng == 'papel':
+        print('PAPEL = PAPEL')
+        win = 2
+    if input1 == '2' and rng == 'tesoura':
+        print('PAPEL < TESOURA')
+        win = 0
+    if input1 == '3' and rng == 'pedra':
+        print('TESOURA < PEDRA')
+        win = 0
+    if input1 == '3' and rng == 'papel':
+        print('TESOURA > PAPEL')
+        win = 1
+    if input1 == '3' and rng == 'tesoura':
+        print('TESOURA = TESOURA')
+        win = 2
+    if win == 0:
+        print('VocÃª perdeu!')
+    if win == 1:
+        print('VocÃª ganhou!')
+    if win == 2:
+        print('Empate!')
